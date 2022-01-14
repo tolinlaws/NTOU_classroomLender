@@ -219,7 +219,7 @@
 
                         userName_content = "姓名: " + data.userName + "  <button id = 'userName_button' type = 'button'> 修改</button>";
                         //password_content = "密碼: " + data.password + "  <button id = 'password_button' type = 'button'> 修改</button>";
-                        Email_content = "信箱: " + data.Email + "  <button id = 'Email_button' type = 'button'> 修改</button>";
+                        Email_content = "信箱: " + data.Email;
                         status_content = "狀態: " + data.status + "  <button id = 'status_button' type = 'button'> 修改</button>";
                         schoolName_content = "帳號(學號): " + data.schoolName;
 
@@ -237,12 +237,12 @@
 
                         var userNameButton = document.getElementById("userName_button");
                         //var passwordButton = document.getElementById("password_button");
-                        var EmailButton = document.getElementById("Email_button");
+                        //var EmailButton = document.getElementById("Email_button");
                         var statusButton = document.getElementById("status_button");
 
                         userNameButton.addEventListener("click", modify_userName, false);
                         //passwordButton.addEventListener("click", modify_password, false);
-                        EmailButton.addEventListener("click", modify_Email, false);
+                        //EmailButton.addEventListener("click", modify_Email, false);
                         statusButton.addEventListener("click", modify_status, false);
                     }
                 },
@@ -294,10 +294,6 @@
             document.getElementById("userName_div").innerHTML = content;
         }
 
-        function modify_Email() {
-            var content = "<input type='email' class='form-control' placeholder='信箱' id='Email' name='Email' size='20'>" + "<button type='button' onclick='javascript: get_Email()'>確認</button>";
-            document.getElementById("Email_div").innerHTML = content;
-        }
 
         function modify_status() {
             var content = "<input type='text' class='form-control' placeholder='狀態' id='status' name='status' size='20'>" + "<button type='button' onclick='javascript: get_status()'>確認</button>";
@@ -309,10 +305,6 @@
             post_modify_Func();
         }
 
-        function get_Email() {
-            Email = document.getElementById("Email").value;
-            post_modify_Func();
-        }
 
         function get_status() {
             status = document.getElementById("status").value;
