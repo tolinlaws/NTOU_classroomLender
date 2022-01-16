@@ -209,13 +209,17 @@
 
             var data = {
                 "schoolName": schoolName,
+                "password": password,
+                "userName": userName,
+                "passwdConfirm": passwdConfirm,
+                "phoneNumber": phoneNumber,
                 "Email": Email
             }
 
             console.log(data);
             $.ajax({
                 type: 'POST',
-                url: "https://desolate-wildwood-64845.herokuapp.com/users/setIdentityCode/",
+                url: "https://desolate-wildwood-64845.herokuapp.com/users/setIdentityCode2/",
                 data: JSON.stringify(data),
                 contentType: 'application/json; charset=UTF-8',
                 dataType: 'json',
