@@ -34,6 +34,26 @@
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
+
+            var password = "";
+            var passwordConfirm = "";
+
+            //檢查輸入密碼是否相同
+            function confirm_again() {
+                
+                password = document.getElementById("password").value;
+                passwordConfirm = document.getElementById("password_again").value;
+                if (password == passwordConfirm) {
+                    postFunc();
+                }
+                else {
+                   // document.getElementById("error").innerHTML = " 兩次輸入不同，請重新輸入!";
+                    alert("兩次輸入不同，請重新輸入!");
+                    document.getElementById("password").value = "";
+                    document.getElementById("password_again").value = "";
+                }
+            }   
+
             //將修改的資訊-使用者名稱(userName)、密碼(password)、手機(phoneNumber)post到後端
             function postFunc() {
                 var userName = document.getElementById("userName").value;
@@ -159,7 +179,7 @@
             
         
                     <p>
-                        <input type = "button" value = "確認修改" onclick="javascript: postFunc()" style = "color:firebrick" >
+                        <input type = "button" value = "確認修改" onclick="javascript: confirm_again()" style = "color:firebrick" >
                     </p>
                 </div>
             </center>
