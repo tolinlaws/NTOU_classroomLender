@@ -301,12 +301,14 @@
 
         function modify_userName() {
             var content = "<input type='text' class='form-control' placeholder='請輸入姓名' id='userName' name='userName' size='20'>" + "<button type='button' onclick='javascript: get_userName()'>確認</button>";
+
             document.getElementById("userName_div").innerHTML = content;
         }
 
 
         function modify_status() {
             var content = "<input type='text' class='form-control' placeholder='請輸入數字' id='status' name='status' size='20'>" + "<button type='button' onclick='javascript: get_status()'>確認</button>";
+            content += "<p>0:未借用  1: 借用中  2: 禁止借用  3: 審核中  4: 註冊中</p>";
             document.getElementById("status_div").innerHTML = content;
         }
 
