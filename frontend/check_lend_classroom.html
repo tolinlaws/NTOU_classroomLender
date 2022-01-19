@@ -119,7 +119,7 @@
 
                                 console.log(data);
 
-                                content = "<tr><th>姓名</th><th>教室編號</th><th>使用時間</th><th>使用日期</th></tr>";
+                                content = "<tr><th>姓名</th><th>學號</th><th>教室編號</th><th>使用時間</th><th>使用日期</th><th>使用事由</th></tr>";
 
                                 data = data.data;
                                 console.log(data.length);
@@ -127,7 +127,7 @@
                                         var str = data[i].split(",");
                                         console.log(str);
                                         //btn-sm btn-secondary
-                                        content += "<tr>" + "<td data-th='姓名'>"+str[1]+"</td>"+"<td data-th='教室編號'>"+str[2]+"</td>"+"<td data-th='使用時間'>"+str[3]+"~"+str[4]+"</td>"+"<td data-th='使用日期'>"+str[5]+"</td>"+"<td>"+"<button type='button' onclick= 'confirm("+ i +")'>確認</button>"+"</td>"+"<td>"+"<button  type='button' onclick= 'reject("+ i +")'>拒絕</button>"+"</td>"+ "</tr>";
+                                        content += "<tr>" + "<td data-th='姓名'>"+str[1]+"</td>"+"<td data-th='學號'>"+str[0]+"</td>"+"<td data-th='教室編號'>"+str[2]+"</td>"+"<td data-th='使用時間'>"+str[3]+"~"+str[4]+"</td>"+"<td data-th='使用日期'>"+str[5]+"</td>"+"<td>"+"<button type='button' onclick= 'confirm("+ i +")'>確認</button>"+"</td>"+"<td>"+"<button  type='button' onclick= 'reject("+ i +")'>拒絕</button>"+"</td>"+ "</tr>";
                                     
                                         schoolName[i] = str[0];
                                         classroomID[i] = str[2];
