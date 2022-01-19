@@ -47,8 +47,11 @@ def lendClassroom():
     cursor=connection.cursor()
     info['classroomID'] = request.json['classroomID']
     info['courseName'] = request.json['courseName']
-    info['userName'] = request.json['userName']
-    info['phoneNumber'] = request.json['phoneNumber']
+    schoolname = session.get('schoolName')
+    cursor.execute("SELECT userName,phoneNumber from Users WHERE schoolname=%(schoolname)s ", {'schoolname':schoolname})
+    rows = cursor.fetchall()
+    info['userName'] = rows[0][0]
+    info['phoneNumber'] = rows[0][1]
     info['lendTime'] = request.json['lendTime']
     info['returnTime'] = request.json['returnTime']
     info['weekDay'] = request.json['weekDay']
@@ -56,16 +59,12 @@ def lendClassroom():
     try:
         print(info['classroomID'])
         cursor.execute("SELECT * from Classrooms WHERE classroomID=%(classroomID)s ", {'classroomID':info['classroomID']})
-        connection.commit()
         rows = cursor.fetchall()
         connection.commit()
         if len(rows) == 0:
             errors.append("No classroom exist!")
             info['errors']=errors
         else:
-            insertString = 'UPDATE Classrooms SET status = 1 WHERE classroomID=(%(classroomID)s);'
-            cursor.execute(insertString, {'classroomID':info['classroomID']})
-            connection.commit()
             insertString = 'INSERT INTO ApplicationForms(classroomID,courseName,userName,schoolName,phoneNumber,lendTime,returnTime,weekDay,reason)values(%(classroomID)s,%(courseName)s,%(userName)s,%(schoolName)s,%(phoneNumber)s,%(lendTime)s,%(returnTime)s,%(weekDay)s,%(reason)s);'
             cursor.execute(insertString,{'classroomID':info['classroomID'],'courseName':info['courseName'],'userName':info['userName'],'schoolName':session.get('schoolName'),'phoneNumber':info['phoneNumber'],'lendTime':info['lendTime'],'returnTime':info['returnTime'],'weekDay':info['weekDay'],'reason':info['reason']})
             connection.commit()
