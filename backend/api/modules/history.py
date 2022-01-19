@@ -180,8 +180,19 @@ def checkReturnClassroom():
     info['lendWeekDay'] = request.json['weekDay']
     try:
         #update user's status=0
-        insertString = 'UPDATE Users SET status=0 WHERE schoolName=(%(schoolName)s);'
-        cursor.execute(insertString, {'schoolName':info['schoolName']})
+        cursor.execute("SELECT * from ApplicationForms WHERE schoolname=%(schoolname)s ", {'schoolname':info['schoolName']})
+        rows = cursor.fetchall()
+        connection.commit()
+        if len(rows) == 0:
+            insertString = 'UPDATE Users SET status=0 WHERE schoolName=(%(schoolName)s);'
+            cursor.execute(insertString, {'schoolName':info['schoolName']})
+            connection.commit()
+        else:
+            insertString = 'UPDATE Users SET status=3 WHERE schoolName=(%(schoolName)s);'
+            cursor.execute(insertString, {'schoolName':info['schoolName']})
+            connection.commit()
+        insertString = 'UPDATE Classrooms SET status=0 WHERE classroomID=(%(classroomID)s);'
+        cursor.execute(insertString, {'classroomID':info['classroomID']})
         connection.commit()
         #update history: returnTime,returnWeekDay
         info['returnTime'] = datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S")

@@ -50,6 +50,7 @@ def lendClassroom():
     schoolname = session.get('schoolName')
     cursor.execute("SELECT userName,phoneNumber from Users WHERE schoolname=%(schoolname)s ", {'schoolname':schoolname})
     rows = cursor.fetchall()
+    connection.commit()
     info['userName'] = rows[0][0]
     info['phoneNumber'] = rows[0][1]
     info['lendTime'] = request.json['lendTime']
@@ -72,4 +73,28 @@ def lendClassroom():
             traceback.print_exc()
             connection.rollback()
             info['errors'] = 'checkLendClassroom fail'
+    return jsonify(info)
+
+@ApplicationForms.route('/selectApplicationForms',methods=['POST'])
+def selectApplicationForms():
+    info = dict()
+    errors = []
+    connection = pymysql.connect(host=cfg['db']['host'],user=cfg['db']['user'],password=cfg['db']['password'],db=cfg['db']['database'])
+    cursor=connection.cursor()
+    info['classroomID'] = request.json['classroomID']
+    try:
+        info['lendTime']=[]
+        info['returnTime']=[]
+        info['weekDay']=[]
+        cursor.execute("SELECT lendTime,returnTime,weekDay from ApplicationForms WHERE classroomID=%(classroomID)s ", {'classroomID':info['classroomID']})
+        rows = cursor.fetchall()
+        connection.commit()
+        for row in rows:
+            info['lendTime'].append(row[0])
+            info['returnTime'].append(row[1])
+            info['weekDay'].append(row[2])
+    except Exception: #get exception if there's still occured something wrong
+            traceback.print_exc()
+            connection.rollback()
+            info['errors'] = 'selectApplicationForms fail'
     return jsonify(info)
