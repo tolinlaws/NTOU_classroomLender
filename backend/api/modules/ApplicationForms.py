@@ -50,6 +50,7 @@ def lendClassroom():
     schoolname = session.get('schoolName')
     cursor.execute("SELECT userName,phoneNumber from Users WHERE schoolname=%(schoolname)s ", {'schoolname':schoolname})
     rows = cursor.fetchall()
+    connection.commit()
     info['userName'] = rows[0][0]
     info['phoneNumber'] = rows[0][1]
     info['lendTime'] = request.json['lendTime']
