@@ -136,6 +136,7 @@
                     console.log(data);
                     if (data.errors != "") {
                         alert("未順利註冊" + data.errors);
+                        location.href = 'index.html';
                     }
                     else {
                         alert("註冊成功");
